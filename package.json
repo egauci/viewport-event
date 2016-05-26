@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src/index.js | uglifyjs - -c -m -o dist/index.js",
+    "testbuild": "babel src/index.js -o dist/index.js",
     "prepublish": "npm run build"
   },
   "repository": {

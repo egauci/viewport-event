@@ -11,7 +11,7 @@ class ViewPort extends EventEmitter {
 
     const sendEvent = () => {
       tmr = 0;
-      this.emit('viewport', this.getViewport);
+      this.emit('viewport', this.getViewport());
     };
 
     if (raf) {
@@ -70,15 +70,15 @@ class ViewPort extends EventEmitter {
     return Math.min(h, w);
   }
   getViewport() {
-    const clientWidth = document.body.clientWidth || window.innerWidth;
-    const clientHeight = document.body.clientHeight || window.innerHeight;
+    const clientWidth = document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
+    const clientHeight = document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight;
     return {
       scrollX: window.pageXOffset,
       scrollY: window.pageYOffset,
       width: this._width({w: window.innerWidth, h: window.innerHeight}),
       height: this._height({w: window.innerWidth, h: window.innerHeight}),
       clientWidth: this._width({w: clientWidth, h: clientHeight}),
-      clientHeight: this._width({w: clientWidth, h: clientHeight})
+      clientHeight: this._height({w: clientWidth, h: clientHeight})
     };
   }
 }
