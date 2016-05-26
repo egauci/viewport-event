@@ -51,3 +51,16 @@ On browsers that support *requestAnimationFrame*, the *viewport*
 event is throttled using that mechanism. On older browsers that
 do not, throttling is more conservative, with the event coming only
 after a "quiet time".
+
+Testing
+-------
+
+I have a manual test page: https://github.com/egauci/tviewport with
+[live code](https://ldo.gauci.co/tviewport/).
+
+The test page shows data centered in the window and "crop marks" in
+the four corners, all based on results from *viewport-event*.
+
+I have tested on Safari, Chrome, and Firefox on iOS, Safari, Chrome,
+and Firefox on OS X, and IE 11, Chrome, and Firefox on Windows 7. Any
+test results, especially failing tests, are welcome.
