@@ -7,6 +7,8 @@ class ViewPort extends EventEmitter {
     const raf = window.requestAnimationFrame;
     let tmr;
 
+    this._isIOS = navigator.platform.search(/iPad|iPhone|iPod/) !== -1;
+
     const sendEvent = () => {
       tmr = 0;
       this.emit('viewport', this.getViewport());
@@ -69,12 +71,15 @@ class ViewPort extends EventEmitter {
   }
   getViewport() {
     const clientWidth = document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
-    const clientHeight = document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight;
+    const height = this._height({w: window.innerWidth, h: window.innerHeight});
+    const clientHeight = this._isIOS ?
+      height : document.documentElement.clientHeight;
     return {
+      isIOS: this._isIOS,
       scrollX: window.pageXOffset,
       scrollY: window.pageYOffset,
       width: this._width({w: window.innerWidth, h: window.innerHeight}),
-      height: this._height({w: window.innerWidth, h: window.innerHeight}),
+      height,
       clientWidth: this._width({w: clientWidth, h: clientHeight}),
       clientHeight: this._height({w: clientWidth, h: clientHeight})
     };
