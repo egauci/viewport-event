@@ -5,8 +5,6 @@ class ViewPort extends EventEmitter {
   constructor() {
     super();
     const raf = window.requestAnimationFrame;
-    const orientation = window.orientation;
-    this._orientation = orientation;
     let tmr;
 
     const sendEvent = () => {
@@ -50,7 +48,7 @@ class ViewPort extends EventEmitter {
     }
   }
   _width({w, h}) {
-    const orientation = this._orientation;
+    const orientation = window.orientation;
     if (orientation === undefined) {
       return w;
     }
@@ -60,7 +58,7 @@ class ViewPort extends EventEmitter {
     return Math.max(w, h);
   }
   _height({w, h}) {
-    const orientation = this._orientation;
+    const orientation = window.orientation;
     if (orientation === undefined) {
       return h;
     }
