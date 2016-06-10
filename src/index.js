@@ -22,8 +22,8 @@ class ViewPort extends EventEmitter {
             sendEvent();
             ticking = false;
           });
+          ticking = true;
         }
-        ticking = true;
       });
       window.addEventListener('resize', () => {
         if (!ticking) {
@@ -31,6 +31,7 @@ class ViewPort extends EventEmitter {
             sendEvent();
             ticking = false;
           });
+          ticking = true;
         }
       });
     } else {
