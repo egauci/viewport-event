@@ -16,7 +16,7 @@ class ViewPort extends EventEmitter {
 
     if (raf) {
       let ticking = false;
-      window.addEventListener('scroll', () => {
+      const handler = () => {
         if (!ticking) {
           raf(() => {
             sendEvent();
@@ -24,29 +24,20 @@ class ViewPort extends EventEmitter {
           });
           ticking = true;
         }
-      });
-      window.addEventListener('resize', () => {
-        if (!ticking) {
-          raf(() => {
-            sendEvent();
-            ticking = false;
-          });
-          ticking = true;
-        }
+      };
+      ['scroll', 'resize'].forEach(event => {
+        window.addEventListener(event, handler);
       });
     } else {
       const timVal = isTouch ? 1 : 200;
-      window.addEventListener('scroll', () => {
+      const handler = () => {
         if (tmr) {
           clearTimeout(tmr);
         }
         tmr = setTimeout(sendEvent, timVal);
-      });
-      window.addEventListener('resize', () => {
-        if (tmr) {
-          clearTimeout(tmr);
-        }
-        tmr = setTimeout(sendEvent, timVal);
+      };
+      ['scroll', 'resize'].forEach(event => {
+        window.addEventListener(event, handler);
       });
     }
   }
